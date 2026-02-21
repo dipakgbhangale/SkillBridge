@@ -1,0 +1,507 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;900&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ══════════════════════════════════════════════════
+   ROOT & GLOBAL
+══════════════════════════════════════════════════ */
+:root {
+  --fc-border-color: #2d2d4a;
+  --fc-daygrid-event-dot-width: 8px;
+  --fc-today-bg-color: rgba(99, 102, 241, 0.12);
+  --fc-neutral-bg-color: #0f0f1a;
+  --fc-page-bg-color: #12122a;
+  --fc-small-font-size: 0.8em;
+  --radius: 14px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  @apply bg-dark-900 text-slate-100;
+  font-family: 'Inter', sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ══════════════════════════════════════════════════
+   KEYFRAME ANIMATIONS
+══════════════════════════════════════════════════ */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px) scale(0.97);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes slideInRight {
+  from {
+    opacity: 0;
+    transform: translateX(30px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes scaleIn {
+  from {
+    opacity: 0;
+    transform: scale(0.88);
+  }
+
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+@keyframes glowPulse {
+
+  0%,
+  100% {
+    box-shadow: 0 0 0 0 rgba(99, 102, 241, 0);
+  }
+
+  50% {
+    box-shadow: 0 0 20px 4px rgba(99, 102, 241, 0.25);
+  }
+}
+
+@keyframes float {
+
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-8px);
+  }
+}
+
+@keyframes borderPulse {
+
+  0%,
+  100% {
+    border-color: rgba(99, 102, 241, 0.3);
+  }
+
+  50% {
+    border-color: rgba(99, 102, 241, 0.8);
+  }
+}
+
+@keyframes countUp {
+  from {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* Animation utility classes */
+.animate-fade-in {
+  animation: fadeIn 0.45s ease both;
+}
+
+.animate-slide-up {
+  animation: slideUp 0.5s ease both;
+}
+
+.animate-slide-right {
+  animation: slideInRight 0.4s ease both;
+}
+
+.animate-scale-in {
+  animation: scaleIn 0.35s cubic-bezier(.34, 1.56, .64, 1) both;
+}
+
+.animate-shimmer {
+  animation: shimmer 1.6s ease-in-out infinite;
+  background: linear-gradient(90deg, #1a1a2e 0%, #2d2d4a 50%, #1a1a2e 100%);
+  background-size: 200% 100%;
+}
+
+.animate-glow-pulse {
+  animation: glowPulse 2.5s ease-in-out infinite;
+}
+
+.animate-float {
+  animation: float 3s ease-in-out infinite;
+}
+
+.animation-reverse {
+  animation-direction: reverse;
+}
+
+/* Stagger delays for lists */
+.stagger-1 {
+  animation-delay: 0.05s;
+}
+
+.stagger-2 {
+  animation-delay: 0.10s;
+}
+
+.stagger-3 {
+  animation-delay: 0.15s;
+}
+
+.stagger-4 {
+  animation-delay: 0.20s;
+}
+
+.stagger-5 {
+  animation-delay: 0.25s;
+}
+
+/* ══════════════════════════════════════════════════
+   COMPONENT LAYER
+══════════════════════════════════════════════════ */
+@layer components {
+
+  /* ── Typography helpers ── */
+  .section-title {
+    @apply text-xl font-black text-white mb-1;
+  }
+
+  .section-subtitle {
+    @apply text-sm text-slate-400 mb-4;
+  }
+
+  .text-gradient {
+    background: linear-gradient(135deg, #818cf8 0%, #06b6d4 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .text-gradient-warm {
+    background: linear-gradient(135deg, #f59e0b 0%, #ef4444 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  /* ── Form elements ── */
+  .label {
+    @apply block text-xs font-semibold text-slate-400 uppercase tracking-wider mb-1.5;
+  }
+
+  .input {
+    @apply w-full bg-dark-700 border border-dark-500 rounded-xl px-4 py-2.5 text-sm text-slate-100 placeholder-slate-500 outline-none transition-all duration-200 focus:border-primary-500 focus:ring-2 focus:ring-primary-500/20;
+  }
+
+  .input:hover:not(:focus) {
+    border-color: #3d3d5c;
+  }
+
+  /* ── Buttons ── */
+  .btn-primary {
+    @apply px-4 py-2.5 rounded-xl font-semibold text-sm text-white transition-all duration-200 bg-gradient-to-r from-primary-600 to-primary-500 hover:from-primary-500 hover:to-primary-400 hover:shadow-glow hover:-translate-y-0.5 active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:translate-y-0 disabled:hover:shadow-none;
+  }
+
+  .btn-secondary {
+    @apply px-4 py-2.5 rounded-xl font-semibold text-sm text-slate-300 transition-all duration-200 bg-dark-600 border border-dark-400 hover:bg-dark-500 hover:border-primary-500/40 hover:text-white active:scale-95;
+  }
+
+  .btn-danger {
+    @apply px-4 py-2.5 rounded-xl font-semibold text-sm text-red-400 transition-all duration-200 bg-red-500/10 border border-red-500/30 hover:bg-red-500/20 hover:border-red-500/60 hover:text-red-300 active:scale-95;
+  }
+
+  .btn-success {
+    @apply px-4 py-2.5 rounded-xl font-semibold text-sm text-emerald-400 transition-all duration-200 bg-emerald-500/10 border border-emerald-500/30 hover:bg-emerald-500/20 hover:text-emerald-300 active:scale-95;
+  }
+
+  /* ── Cards ── */
+  .card {
+    @apply bg-dark-800 border border-dark-600 rounded-2xl transition-all duration-300 hover:border-dark-400;
+  }
+
+  .card-hover {
+    @apply card hover:-translate-y-1 hover:shadow-xl hover:shadow-primary-900/20 hover:border-primary-500/30;
+  }
+
+  .glass-card {
+    background: rgba(15, 15, 30, 0.6);
+    backdrop-filter: blur(16px);
+    @apply border border-white/10 rounded-2xl;
+  }
+
+  /* ── Badges ── */
+  .badge {
+    @apply inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-xs font-semibold;
+  }
+
+  /* ── Tabs ── */
+  .tab-btn-active {
+    @apply px-4 py-2 rounded-lg text-sm font-semibold text-white transition-all duration-200 bg-primary-600 shadow-glow;
+  }
+
+  .tab-btn-inactive {
+    @apply px-4 py-2 rounded-lg text-sm font-medium text-slate-400 transition-all duration-200 hover:text-white hover:bg-dark-600;
+  }
+
+  /* ── Stat cards ── */
+  .stat-card {
+    @apply bg-gradient-to-br from-dark-700 to-dark-800 border border-dark-500 rounded-2xl p-6 text-center transition-all duration-300 hover:border-primary-500/30 hover:-translate-y-1;
+  }
+}
+
+/* ══════════════════════════════════════════════════
+   FULLCALENDAR PREMIUM OVERRIDES
+══════════════════════════════════════════════════ */
+.fc {
+  font-family: 'Inter', sans-serif !important;
+  font-size: 13px;
+}
+
+/* Wrapper */
+.fc-theme-standard {
+  background: transparent;
+}
+
+/* All borders */
+.fc-theme-standard td,
+.fc-theme-standard th,
+.fc-theme-standard .fc-scrollgrid,
+.fc-theme-standard .fc-scrollgrid-section>td {
+  border-color: #2d2d4a !important;
+}
+
+/* Header bar */
+.fc .fc-toolbar.fc-header-toolbar {
+  margin-bottom: 1rem;
+  background: linear-gradient(135deg, #1a1a2e, #12122a);
+  border-radius: 14px;
+  padding: 0.75rem 1rem;
+  border: 1px solid #2d2d4a;
+}
+
+.fc .fc-toolbar-title {
+  font-size: 1rem !important;
+  font-weight: 800 !important;
+  color: #e2e8f0 !important;
+  letter-spacing: -0.02em;
+}
+
+/* Toolbar buttons */
+.fc .fc-button {
+  background: #1e1e3f !important;
+  border: 1px solid #3d3d6b !important;
+  color: #a5b4fc !important;
+  border-radius: 10px !important;
+  font-size: 12px !important;
+  font-weight: 600 !important;
+  padding: 4px 12px !important;
+  transition: all 0.2s !important;
+  text-transform: capitalize !important;
+}
+
+.fc .fc-button:hover {
+  background: #6366f1 !important;
+  border-color: #6366f1 !important;
+  color: #fff !important;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(99, 102, 241, 0.4) !important;
+}
+
+.fc .fc-button-active,
+.fc .fc-button:not(:disabled).fc-button-active {
+  background: #6366f1 !important;
+  border-color: #6366f1 !important;
+  color: #fff !important;
+  box-shadow: 0 0 16px rgba(99, 102, 241, 0.5) !important;
+}
+
+/* Column headers (Mon Tue…) */
+.fc .fc-col-header-cell {
+  background: linear-gradient(135deg, #1a1a2e, #12122a) !important;
+  border-bottom: 2px solid #3d3d6b !important;
+  padding: 10px 0 !important;
+}
+
+.fc .fc-col-header-cell-cushion {
+  color: #a5b4fc !important;
+  font-weight: 700 !important;
+  font-size: 11px !important;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  padding: 4px 8px !important;
+  text-decoration: none !important;
+}
+
+/* Day cells */
+.fc .fc-daygrid-day {
+  background: rgba(15, 15, 30, 0.6) !important;
+  transition: background 0.2s;
+  min-height: 90px !important;
+}
+
+.fc .fc-daygrid-day:hover {
+  background: rgba(30, 30, 63, 0.8) !important;
+}
+
+.fc .fc-daygrid-day-number {
+  color: #94a3b8 !important;
+  font-weight: 600 !important;
+  font-size: 12px !important;
+  padding: 6px 8px !important;
+  text-decoration: none !important;
+  border-radius: 8px;
+  transition: all 0.2s;
+}
+
+.fc .fc-daygrid-day-number:hover {
+  color: #fff !important;
+  background: rgba(99, 102, 241, 0.15);
+}
+
+/* Today highlight */
+.fc .fc-day-today {
+  background: rgba(99, 102, 241, 0.12) !important;
+  border: 1px solid rgba(99, 102, 241, 0.35) !important;
+}
+
+.fc .fc-day-today .fc-daygrid-day-number {
+  color: #a5b4fc !important;
+  background: rgba(99, 102, 241, 0.2) !important;
+  border-radius: 8px;
+}
+
+/* Other month days */
+.fc .fc-day-other .fc-daygrid-day-number {
+  color: #3d3d5c !important;
+}
+
+.fc .fc-day-other {
+  background: rgba(10, 10, 20, 0.3) !important;
+}
+
+/* Events */
+.fc-event {
+  border-radius: 8px !important;
+  border: none !important;
+  font-size: 11px !important;
+  font-weight: 600 !important;
+  padding: 2px 6px !important;
+  margin: 1px 2px !important;
+  cursor: pointer;
+  transition: transform 0.15s, filter 0.15s !important;
+}
+
+.fc-event:hover {
+  transform: scale(1.03) !important;
+  filter: brightness(1.2) !important;
+}
+
+.fc-daygrid-event-dot {
+  border-color: currentColor !important;
+}
+
+/* Week time grid */
+.fc .fc-timegrid-col {
+  background: rgba(15, 15, 30, 0.5) !important;
+}
+
+.fc .fc-timegrid-slot-label {
+  color: #4d5d7a !important;
+  font-size: 11px !important;
+  font-weight: 600;
+}
+
+.fc .fc-timegrid-axis {
+  border-color: #2d2d4a !important;
+}
+
+.fc .fc-timegrid-now-indicator-line {
+  border-color: #f59e0b !important;
+  border-width: 2px !important;
+}
+
+.fc .fc-timegrid-now-indicator-arrow {
+  border-top-color: #f59e0b !important;
+}
+
+/* Scrollbar inside calendar */
+.fc .fc-scroller::-webkit-scrollbar {
+  width: 5px;
+}
+
+.fc .fc-scroller::-webkit-scrollbar-track {
+  background: #0f0f1a;
+}
+
+.fc .fc-scroller::-webkit-scrollbar-thumb {
+  background: #2d2d4a;
+  border-radius: 3px;
+}
+
+/* More link */
+.fc .fc-daygrid-more-link {
+  color: #818cf8 !important;
+  font-weight: 600 !important;
+  font-size: 11px !important;
+}
+
+/* ══════════════════════════════════════════════════
+   SCROLLBARS
+══════════════════════════════════════════════════ */
+::-webkit-scrollbar {
+  width: 5px;
+  height: 5px;
+}
+
+::-webkit-scrollbar-track {
+  background: #0f0f1a;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #2d2d4a;
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #3d3d6b;
+}

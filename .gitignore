@@ -1,0 +1,18 @@
+# ─── Python / Backend ─────────────────────────────────────────
+backend/.env
+backend/__pycache__/
+backend/routers/__pycache__/
+backend/*.pyc
+backend/skillbridge.db
+
+# ─── Node / Frontend ──────────────────────────────────────────
+frontend/node_modules/
+frontend/dist/
+frontend/.env
+frontend/.env.local
+frontend/.env.production
+
+# ─── General ──────────────────────────────────────────────────
+.DS_Store
+*.log
+*.tmp
