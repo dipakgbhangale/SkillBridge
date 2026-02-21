@@ -12,7 +12,12 @@ connect_args = {}
 if DATABASE_URL.startswith("sqlite"):
     connect_args = {"check_same_thread": False}
 
-engine = create_engine(DATABASE_URL, connect_args=connect_args)
+engine = create_engine(
+    DATABASE_URL,
+    connect_args=connect_args,
+    pool_pre_ping=True,    # re-test connection before use (fixes Neon idle drops)
+    pool_recycle=300,      # recycle connections every 5 min
+)
 
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 

@@ -21,17 +21,16 @@ app = FastAPI(
     version="1.0.0",
 )
 
-# CORS — allow React frontend (read from env in production)
-FRONTEND_URL = os.getenv("FRONTEND_URL", "http://localhost:5173")
-allowed_origins = [
-    "http://localhost:5173",
-    "http://localhost:3000",
-    FRONTEND_URL,
-]
+# CORS — read comma-separated origins from env (supports multiple Vercel URLs)
+_cors_env = os.getenv(
+    "CORS_ORIGINS",
+    "http://localhost:5173,http://localhost:3000"
+)
+allowed_origins = [o.strip() for o in _cors_env.split(",") if o.strip()]
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=list(set(allowed_origins)),   # deduplicate
+    allow_origins=allowed_origins,
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
