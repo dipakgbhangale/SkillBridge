@@ -21,17 +21,18 @@ app = FastAPI(
     version="1.0.0",
 )
 
-# CORS — read comma-separated origins from env (supports multiple Vercel URLs)
-_cors_env = os.getenv(
-    "CORS_ORIGINS",
-    "http://localhost:5173,http://localhost:3000"
-)
-allowed_origins = [o.strip() for o in _cors_env.split(",") if o.strip()]
+# CORS — allow all origins (safe for a practice project)
+# To restrict later, set CORS_ORIGINS env var as comma-separated list
+_cors_env = os.getenv("CORS_ORIGINS", "*")
+if _cors_env == "*":
+    allowed_origins = ["*"]
+else:
+    allowed_origins = [o.strip() for o in _cors_env.split(",") if o.strip()]
 
 app.add_middleware(
     CORSMiddleware,
     allow_origins=allowed_origins,
-    allow_credentials=True,
+    allow_credentials=allowed_origins != ["*"],  # credentials not allowed with wildcard
     allow_methods=["*"],
     allow_headers=["*"],
 )
